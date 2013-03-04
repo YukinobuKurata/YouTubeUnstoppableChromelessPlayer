@@ -18,3 +18,9 @@ https://github.com/YukinobuKurata/YouTubeUnstoppableChromelessPlayer/blob/master
 MITライセンスについて<br />
 http://wisdommingle.com/mit-license/
 
+このプログラムでは、下記のページで提供されている<br />
+Apache Licenseのコードを使用しています。<br />
+Google Code Playground<br />
+YouTube » Player » Chromeless Player<br />
+https://code.google.com/apis/ajax/playground/?exp=youtube#chromeless_player
+

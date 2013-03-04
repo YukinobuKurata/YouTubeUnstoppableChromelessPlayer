@@ -1,6 +1,11 @@
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+-->
+
 <html lang="ja" xml:lang="ja">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>YouTube動画の一時停止ができないようにする仕組み （Chromeless Player（クロムレスプレーヤー））</title>
 	
 	<script type="text/javascript">
@@ -37,80 +42,131 @@
 		//**************************************************************************
 	</script>
 	
-</head>
-<body>
-
-<!-- この<div>タグは、下記のJavaScriptの働きによって、ページが表示される前に自動的に<iframe>タグ（動画プレーヤー）に置き換えられます。 -->
-<div id="iframe_player_api"></div>
-	
-	
-	<script type="text/javascript">
-		// YouTubeのウェブサイト上にある「IFrameプレーヤーAPI」のコードを
-		// 非同期的に読み込む。
-		var tag = document.createElement('script');
-		tag.src = "http://www.youtube.com/iframe_api";
-		var iframePlayerApiScriptTag = document.getElementsByTagName('script')[0];
-		iframePlayerApiScriptTag.parentNode.insertBefore(tag, iframePlayerApiScriptTag);
-		
-		// 「IFrameプレーヤーAPI」のコードが読み込まれた後、
-		// 「iframe_player_api」というIDがついている<div>タグが
-		// YouTube動画プレーヤーの<iframe>タグに置き換えられる。
-		var player;
-		function onYouTubePlayerAPIReady() {
-				//ここで指定しているID名（「iframe_player_api」）がついた
-				//<div>タグ（上記）は、ページが表示される前に
-				//自動的に<iframe>タグ（動画プレーヤー）に置き換えられます。
-				player = new YT.Player('iframe_player_api', {
-						//動画プレーヤーの横幅（width）と縦幅（height）
-						width: videoWidth,
-						height: videoHeight,
-						//表示させるYouTube動画の「動画ID」
-						videoId: youtubeVideoID,
-						//動画プレーヤーの設定をおこなう「パラメータ」
-						playerVars: {
-								//左の値は「パラメータの名前」。
-								//右の値は「パラメータの値」。
-								'modestbranding': 1,
-								'autohide': 1,
-								'controls': 0,
-								'showinfo': 0,
-								'rel': 0
-																
-						},
-						//「イベントリスナー」
-						events: {
-								//左の値は「イベントリスナー」。
-								//右の値はそのイベントが発生した時に実行される関数。
-								'onReady': onPlayerReady,
-								'onStateChange': onPlayerStateChange
-						}
-				});
-		}
-		//動画を再生する準備が整ったときに実行される関数
-		function onPlayerReady(){
-					
-		}
-		//動画の再生状態が変わったときに実行される関数
-		function onPlayerStateChange(event){
-					
-					switch(event.data){
-						 case YT.PlayerState.ENDED:
-								break;
-						 case YT.PlayerState.PLAYING:
-								break;
-						 case YT.PlayerState.PAUSED:
-								//動画が一時停止されたときに即座に「playVideo()」を実行して
-								//一時停止ができないようにする。
-								player.playVideo();
-								
-								break;
-						 case YT.PlayerState.BUFFERING:
-								break;
-						 case YT.PlayerState.CUED:
-								break;
-					}
-		}
-	</script>
-	
-</body>
+    <style type="text/css">
+      #videoDiv { 
+        margin-right: 3px;
+      }
+      #videoInfo {
+        margin-left: 3px;
+      }
+    </style>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("swfobject", "2.1");
+    </script>    
+    <script type="text/javascript">
+      /*
+       * Chromeless player has no controls.
+       */
+      
+      // Update a particular HTML element with a new value
+      function updateHTML(elmId, value) {
+        document.getElementById(elmId).innerHTML = value;
+      }
+      
+      // This function is called when an error is thrown by the player
+      function onPlayerError(errorCode) {
+        alert("An error occured of type:" + errorCode);
+      }
+      
+      // This function is called when the player changes state
+      function onPlayerStateChange(newState) {
+        updateHTML("playerState", newState);
+      }
+      
+      // Display information about the current state of the player
+      function updatePlayerInfo() {
+        // Also check that at least one function exists since when IE unloads the
+        // page, it will destroy the SWF before clearing the interval.
+        if(ytplayer && ytplayer.getDuration) {
+          updateHTML("videoDuration", ytplayer.getDuration());
+          updateHTML("videoCurrentTime", ytplayer.getCurrentTime());
+          updateHTML("bytesTotal", ytplayer.getVideoBytesTotal());
+          updateHTML("startBytes", ytplayer.getVideoStartBytes());
+          updateHTML("bytesLoaded", ytplayer.getVideoBytesLoaded());
+          updateHTML("volume", ytplayer.getVolume());
+        }
+      }
+      
+      // Allow the user to set the volume from 0-100
+      function setVideoVolume() {
+        var volume = parseInt(document.getElementById("volumeSetting").value);
+        if(isNaN(volume) || volume < 0 || volume > 100) {
+          alert("Please enter a valid volume between 0 and 100.");
+        }
+        else if(ytplayer){
+          ytplayer.setVolume(volume);
+        }
+      }
+      
+      function playVideo() {
+        if (ytplayer) {
+          ytplayer.playVideo();
+        }
+      }
+      
+      function pauseVideo() {
+        if (ytplayer) {
+          ytplayer.pauseVideo();
+        }
+      }
+      
+      function muteVideo() {
+        if(ytplayer) {
+          ytplayer.mute();
+        }
+      }
+      
+      function unMuteVideo() {
+        if(ytplayer) {
+          ytplayer.unMute();
+        }
+      }
+      
+      
+      // This function is automatically called by the player once it loads
+      function onYouTubePlayerReady(playerId) {
+        ytplayer = document.getElementById("ytPlayer");
+        // This causes the updatePlayerInfo function to be called every 250ms to
+        // get fresh data from the player
+        setInterval(updatePlayerInfo, 250);
+        updatePlayerInfo();
+        ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+        ytplayer.addEventListener("onError", "onPlayerError");
+        //Load an initial video into the player
+        ytplayer.cueVideoById("DA6x6DpEREA");
+      }
+      
+      // The "main method" of this sample. Called when someone clicks "Run".
+      function loadPlayer() {
+        // Lets Flash from another domain call JavaScript
+        var params = { allowScriptAccess: "always" };
+        // The element id of the Flash embed
+        var atts = { id: "ytPlayer" };
+        // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
+        swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+                           "version=3&enablejsapi=1&playerapiid=player1", 
+                           "videoDiv", "480", "295", "9", null, null, params, atts);
+      }
+      function _run() {
+        loadPlayer();
+      }
+      google.setOnLoadCallback(_run);
+    </script>
+  </head>
+  <body style="font-family: Arial;border: 0 none;">
+    <table>
+    <tr>
+    <td><div id="videoDiv">読込中・・・</div></td>
+    <td valign="top">
+      <div id="videoInfo">
+        <p>Player state: <span id="playerState">--</span></p>
+        <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
+        <p>Bytes Total: <span id="bytesTotal">--</span> | Start Bytes: <span id="startBytes">--</span> | Bytes Loaded: <span id="bytesLoaded">--</span></p>
+        <p>Controls: <a href="javascript:void(0);" onclick="playVideo();">Play</a> | <a href="javascript:void(0);" onclick="pauseVideo();">Pause</a> | <a href="javascript:void(0);" onclick="muteVideo();">Mute</a> | <a href="javascript:void(0);" onclick="unMuteVideo();">Unmute</a></p>
+        <p><input id="volumeSetting" type="text" size="3" />&nbsp;<a href="javascript:void(0)" onclick="setVideoVolume();">&lt;- Set Volume</a> | Volume: <span id="volume">--</span></p>
+      </div>
+    </td></tr>
+    </table>
+  </body>
 </html>

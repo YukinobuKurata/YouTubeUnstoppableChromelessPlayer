@@ -1,7 +1,7 @@
 YouTubeUnstoppableChromelessPlayer
 ==================================
 
-「YouTube動画の一時停止ができないようにする仕組み （Chromeless Player（クロムレスプレーヤー））」
+「YouTube動画の一時停止ができないようにする仕組み （Chromeless Player（クロムレスプレーヤー）（JavaScriptプレーヤーAPI））」
 
 &lt;iframe&gt;タグの埋め込みコードをつかったHTML5形式の動画プレーヤーです。
 

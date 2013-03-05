@@ -3,7 +3,7 @@ YouTubeUnstoppableChromelessPlayer
 
 「YouTube動画の一時停止ができないようにする仕組み （Chromeless Player（クロムレスプレーヤー）（JavaScriptプレーヤーAPI））」
 
-&lt;iframe&gt;タグの埋め込みコードをつかったHTML5形式の動画プレーヤーです。
+&lt;object&gt;タグの埋め込みコードをつかったFlash形式の動画プレーヤーです。
 
 解説ページ<br />
 http://wisdommingle.com/youtube-chromeless-player-video-unstoppable-player/

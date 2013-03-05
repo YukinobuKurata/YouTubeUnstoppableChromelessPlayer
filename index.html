@@ -37,46 +37,61 @@
 		//**************************************************************************
 	</script>
 	
-  <script src="http://www.google.com/jsapi" type="text/javascript"></script>
-  <script type="text/javascript">
-    google.load("swfobject", "2.2");
-  </script>    
-  <script type="text/javascript">
-    
-    // This function is called when the player changes state
-    function onPlayerStateChange(newState) {
-      
-    }
-    
-    // This function is automatically called by the player once it loads
-    function onYouTubePlayerReady(playerId) {
-      ytplayer = document.getElementById("ytPlayer");
-      ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-      //Load an initial video into the player
-      ytplayer.cueVideoById( youtubeVideoID );
-    }
-    
-    // The "main method" of this sample. Called when someone clicks "Run".
-    function loadPlayer() {
-      // Lets Flash from another domain call JavaScript
-      var params = { allowScriptAccess: "always" };
-      // The element id of the Flash embed
-      var atts = { id: "ytPlayer" };
-      // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-      swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-                         "version=3&enablejsapi=1&playerapiid=player1", 
-                         "videoDiv", videoWidth, videoHeight, "9", null, null, params, atts);
-    }
-    function _run() {
-      loadPlayer();
-    }
-    google.setOnLoadCallback(_run);
-  </script>
-  
+	<!-- Googleのウェブサイト上にある「Google Loader」を読み込む。 -->
+	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		// 「Google Loader」をつかって、「SWFObject」のAPIを読み込む。
+		google.load("swfobject", "2.2");
+	</script>
+	
+	<script type="text/javascript">
+		
+		// 動画の再生状態が変わったときに実行される関数
+		function onPlayerStateChange(newState) {
+			
+		}
+		
+		// 動画を再生する準備が整ったときに実行される関数
+		function onYouTubePlayerReady(playerId) {
+			ytplayer = document.getElementById("ytPlayer");
+			
+			// 「イベントリスナー」
+			//左の値は「イベントリスナー」、右の値はそのイベントが発生した時に実行される関数。
+			ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+			
+			//動画を動画プレーヤーに読み込む。
+			ytplayer.cueVideoById( youtubeVideoID );
+		}
+		
+		// 再生ボタンを押した時に実行される関数。
+		function loadPlayer() {
+			// 他のドメインにから呼び出されているSWF形式の動画プレーヤーが
+			// 埋め込み先のHTMLページのなかでJavaScriptの関数を実行できるようにする。
+			var params = { allowScriptAccess: "always" };
+			
+			// Flash形式の埋め込み動画プレーヤーのHTML要素のid名。
+			var atts = { id: "ytPlayer" };
+			
+			// 「SWFObject」によるFlash形式の埋め込み動画プレーヤーの設定。
+			// (「SWFObject」 http://code.google.com/p/swfobject/ )
+			swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+												 "version=3&enablejsapi=1&playerapiid=player1", 
+												 "videoDiv", videoWidth, videoHeight, "9", null, null, params, atts);
+		}
+		
+		function _run() {
+			loadPlayer();
+		}
+		
+		google.setOnLoadCallback(_run);
+		
+	</script>
+	
 </head>
 <body>
-  
-  <div id="videoDiv">読込中・・・</div>
-  
+	
+	<div id="videoDiv">読込中・・・</div>
+	
 </body>
 </html>

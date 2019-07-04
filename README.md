@@ -6,17 +6,17 @@ YouTubeUnstoppableChromelessPlayer
 &lt;object&gt;タグの埋め込みコードをつかったFlash形式の動画プレーヤーです。
 
 解説ページ<br />
-http://wisdommingle.com/youtube-chromeless-player-video-unstoppable-player/
+https://wisdommingle.com/youtube-chromeless-player-video-unstoppable-player/
 
 倉田幸暢(Yukinobu Kurata)<br />
-http://wisdommingle.com
+https://wisdommingle.com
 
 Copyright (c) 2013 Yukinobu Kurata<br />
 Released under the MIT license<br />
 https://github.com/YukinobuKurata/YouTubeUnstoppableChromelessPlayer/blob/master/MIT-LICENSE.txt
 
 MITライセンスについて<br />
-http://wisdommingle.com/mit-license/
+https://wisdommingle.com/mit-license/
 
 このプログラムでは、下記のページで提供されている<br />
 Apache Licenseのコードを使用しています。<br />

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ja" xml:lang="ja">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -6,17 +7,17 @@
 	<script type="text/javascript">
 		/*
 		* 解説ページ
-		* http://wisdommingle.com/youtube-chromeless-player-video-unstoppable-player/
+		* https://wisdommingle.com/youtube-chromeless-player-video-unstoppable-player/
 		* 
 		* 倉田幸暢(Yukinobu Kurata)
-		* http://wisdommingle.com
+		* https://wisdommingle.com
 		* 
 		* Copyright (c) 2013 Yukinobu Kurata
 		* Released under the MIT license
 		* https://github.com/YukinobuKurata/YouTubeUnstoppableChromelessPlayer/blob/master/MIT-LICENSE.txt
 		*
 		* MITライセンスについて
-		* http://wisdommingle.com/mit-license/
+		* https://wisdommingle.com/mit-license/
 		*/
 		
 		//**************************************************************************
@@ -38,7 +39,7 @@
 	</script>
 	
 	<!-- Googleのウェブサイト上にある「Google Loader」を読み込む。 -->
-	<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+	<script src="https://www.google.com/jsapi" type="text/javascript"></script>
 	
 	<script type="text/javascript">
 		// 「Google Loader」をつかって、「SWFObject」のAPIを読み込む。
@@ -53,7 +54,7 @@
 		}
 		
 		// 動画を再生する準備が整ったときに実行される関数
-		function onYouTubePlayerReady(playerId) {
+		function onYouTubeIframeAPIReady(playerId) {
 			ytplayer = document.getElementById("ytPlayer");
 			
 			// 「イベントリスナー」
@@ -74,8 +75,8 @@
 			var atts = { id: "ytPlayer" };
 			
 			// 「SWFObject」によるFlash形式の埋め込み動画プレーヤーの設定。
-			// (「SWFObject」 http://code.google.com/p/swfobject/ )
-			swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+			// (「SWFObject」 https://code.google.com/p/swfobject/ )
+			swfobject.embedSWF("https://www.youtube.com/apiplayer?" +
 												 "version=3&enablejsapi=1&playerapiid=player1", 
 												 "videoDiv", videoWidth, videoHeight, "9", null, null, params, atts);
 		}
